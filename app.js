@@ -1,11 +1,12 @@
 const express = require("express");
 const { open } = require("sqlite");
-const sqlite3 = require("path");
+const sqlite3 = require("sqlite3");
+const path = require("path");
 
 const databasePath = path.join(__dirname, "moviesData.db");
 const app = express();
-app.use(express.json());
 
+app.use(express.json());
 let database = null;
 
 const initializeDbAndServer = async () => {
@@ -67,7 +68,7 @@ app.get("/movies/:movieId/", async (request, response) => {
 });
 
 app.post("/movies/", async (request, response) => {
-  const { directorId, movie_name, lead_actor } = request.body;
+  const { directorId, movieName, leadActor } = request.body;
   const postMovieQuery = `
     INSERT INTO 
     movie (director_id, movie_name, lead_actor)
